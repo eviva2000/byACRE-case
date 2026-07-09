@@ -1,5 +1,59 @@
 @import "tailwindcss";
 
+:root {
+  --byacre-black: #000000;
+  --byacre-white: #ffffff;
+  --byacre-red: #e62d2b;
+  --byacre-light-blue: #e0eef5;
+  --granite: #3f4040;
+  --slate: #707b81;
+  --border: #dfe3e6;
+  --bg: #ffffff;
+  --background: var(--bg);
+  --champagne-gold: #e0ceb5;
+  --oyster-white: #e9e6cb;
+  --glacier-green: #c7ddd1;
+  --pale-rose: #f7e4e7;
+  --morning-blue: #bbdce9;
+  --royal-blue: #2a2b57;
+  --british-racing-green: #323e31;
+  --defender-green: #77896f;
+  --bentley-brown: #8a796c;
+  --rose-gold: #cdb8b9;
+}
 
+@theme {
+  --color-byacre-black: var(--byacre-black);
+  --color-byacre-white: var(--byacre-white);
+  --color-byacre-red: var(--byacre-red);
+  --color-byacre-light-blue: var(--byacre-light-blue);
+  --color-granite: var(--granite);
+  --color-slate: var(--slate);
+  --color-border: var(--border);
+  --color-bg: var(--bg);
+  --color-background: var(--background);
+  --color-champagne-gold: var(--champagne-gold);
+  --color-oyster-white: var(--oyster-white);
+  --color-glacier-green: var(--glacier-green);
+  --color-pale-rose: var(--pale-rose);
+  --color-morning-blue: var(--morning-blue);
+  --color-royal-blue: var(--royal-blue);
+  --color-british-racing-green: var(--british-racing-green);
+  --color-defender-green: var(--defender-green);
+  --color-bentley-brown: var(--bentley-brown);
+  --color-rose-gold: var(--rose-gold);
+}
 
+* {
+  box-sizing: border-box;
+}
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--granite);
+}

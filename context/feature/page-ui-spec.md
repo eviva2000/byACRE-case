@@ -4,16 +4,16 @@
 
 This is phase 1 for the byACRE warranty claim page UI.
 
-Build a **static, display-only** page for the interview case. The goal of this phase is to create the visual structure, brand feel, layout, typography, and responsive UI for the warranty claim page.
+Build a **frontend UI prototype** for the interview case. The goal of this phase is to create the visual structure, brand feel, layout, typography, responsive UI, and a light product-first reveal interaction for the warranty claim page.
 
-Do **not** add real functionality in this phase. No form submission, no validation, no API calls, no file upload handling, no multi-step state logic, and no working order lookup.
+Do **not** add real claim-processing functionality in this phase. No form submission, no validation, no API calls, no file upload handling, no multi-step claim workflow, and no working order lookup.
 
 The page should be inspired by Apple Support’s product-first experience: the user first sees a calm support page and chooses their byACRE rollator model before seeing claim details.
 
 ## Requirements for phase 1
 
 - Create warranty claim route at `/warranty-claim`
-- Build static page UI only
+- Build the page UI with limited client-side model selection used only to reveal the form preview
 - Use byACRE brand styling:
   - Raleway typography
   - White page background
@@ -24,23 +24,23 @@ The page should be inspired by Apple Support’s product-first experience: the u
   - Premium, warm, Scandinavian design feel
 - Do not make the page look clinical, medical, pitying, or like a generic SaaS support form
 - Add responsive layout for desktop, tablet, and mobile
-- Add static header
+- Add sticky header with byACRE logo, support label, and model navigation
 - Add hero section
-- Add rollator model selection section with four display-only cards:
+- Add rollator model selection section with four selectable cards:
   - Carbon Ultralight
   - Carbon Overland
   - Nordic Pioneer
   - Scandinavian Butler
-- Add product images or clean image placeholders for each model
+- Add product images for each model from the approved CDN URLs
 - Add a small secondary Doric Seat support block
-- Add "What you'll need" section
 - Add "What happens next" section
-- Add static warranty claim form preview section
+- Add warranty claim form preview that is hidden by default and revealed after model selection
 - Add static footer/help section
-- Use display-only buttons and form controls
-- Buttons should have visual states only if easy to add with CSS, such as hover/focus styles
-- No click behavior is required
-- No JavaScript state is required
+- Use display-only form controls after the form is revealed
+- Buttons should have visual states, such as hover/focus styles
+- Model buttons/cards should set the currently selected model and reveal the form preview
+- The form preview should show the current selected model name at the top
+- The form reveal should slide in smoothly under the model section
 - No mocked API is required
 - No validation is required
 - No file upload functionality is required
@@ -51,31 +51,40 @@ The page should be inspired by Apple Support’s product-first experience: the u
 /warranty-claim
 
 Header
-  byACRE logo / wordmark placeholder
-  Small support label or navigation text
+  byACRE logo
+  Support label
+  Sticky translucent background
+  Navigation link: Choose model
 
 Hero section
   Eyebrow: Warranty support
   Heading: Let us get your rollator moving smoothly again.
   Body: Choose your byACRE rollator model and we will guide you through a clear warranty claim.
-  Primary display-only CTA: Start with your model
+  Primary CTA link: Start with your model
   Secondary text link: Need general support?
+  Hero product image: Carbon Ultralight
 
 Model selection section
   Section label: Choose your rollator
   Heading: Which model do you need help with?
   Description: Select your model so the claim can be routed with the right product context.
-  Four model cards:
+  Four selectable model cards:
     Carbon Ultralight
     Carbon Overland
     Nordic Pioneer
     Scandinavian Butler
 
 
-Static claim form preview
+Claim form preview
+  Hidden by default until the user selects a model
+  Slides in smoothly underneath the model cards after selection
+  Selected model summary:
+    Label: Selected model
+    Current selected model name
+    Small product thumbnail
   Heading: Warranty claim details
   Body: After choosing a model, customers will add their order details, issue description, photos, and contact information.
-  Static fields:
+  Display-only fields:
     Your name
     Your email
     Serial number
@@ -84,6 +93,14 @@ Static claim form preview
     Describe the issue
     Add photos
   Display-only submit button: Submit warranty claim
+
+What happens next section
+  Section label: After submission
+  Heading: What happens next
+  Three steps:
+    Review
+    Guidance
+    Movement
   
 
 Doric Seat support block
@@ -104,8 +121,10 @@ Use:
 - Large calm hero area
 - Product-first layout
 - Spacious cards
+- Wide desktop content with reduced side whitespace
 - Clear hierarchy
 - Soft borders
+- Larger card and panel border radii
 - Minimal shadows
 - Small red accents
 - Light blue panels
@@ -172,8 +191,9 @@ Typography requirements:
 - Body text minimum 16px
 - Body line-height around 1.6-1.8
 - Main headings use 800 weight
-- Labels and small section titles use uppercase with letter spacing
-- Buttons use 700 or 800 weight
+- Main hero heading uses 58px on larger screens and `text-4xl` on mobile
+- Labels and small section titles use uppercase with letter spacing and 600 weight
+- Primary CTA labels use 600 weight
 - Do not use another typeface
 
 ## Static model card content
@@ -212,9 +232,16 @@ Badge:
 
 Mark warranty badges as prototype assumptions in the README if used.
 
-## Static form preview fields
+## Claim form reveal and preview fields
 
-This phase should show the form visually, but the fields do not need to work.
+The form should be hidden on initial page load. It should be revealed only after the user selects one of the four rollator models.
+
+Reveal behavior:
+- Selecting a model card or model button sets the selected model.
+- The form slides in smoothly under the model section.
+- The top of the form shows the selected model name and a small product thumbnail.
+- The user can clear/change the selected model from the form header.
+- The form fields remain display-only and do not submit data.
 
 Fields to display:
 - Your name
@@ -238,16 +265,14 @@ Display-only button:
 
 ### Desktop
 
-- Max content width around 1120-1200px
+- Main header, hero, and model card content can use a wider max width around 88rem
 - Hero can use two columns if useful
 - Model cards can be 4 columns or 2x2 grid
-- "What you'll need" cards can be 3 columns
-- Form preview can sit beside a help panel or use a centered max width
+- Form preview should reveal beneath the model cards with a centered max width
 
 ### Tablet
 
 - Model cards should become 2 columns
-- Info cards can become 2 columns or stack
 - Maintain generous spacing
 
 ### Mobile
@@ -261,12 +286,14 @@ Display-only button:
 
 ## Accessibility requirements
 
-Even though this phase is display-only, the UI should still be accessible.
+Even though this phase does not submit data, the UI should still be accessible.
 
 - Use semantic HTML sections
 - Use real labels for form fields
 - Buttons should be buttons or links, not divs
 - Cards should have clear headings
+- Model selection buttons should expose selected state where appropriate
+- Hidden form content should not be presented as visible content before model selection
 - Ensure readable contrast
 - Ensure visible focus styles
 - Body text should be at least 16px
@@ -280,10 +307,9 @@ WarrantyClaimPage
   ClaimHero
   ModelSelection
   ModelCard
-  WhatYouNeed
+  ClaimFormPreview
   WhatHappensNext
   DoricSeatSupportBlock
-  ClaimFormPreview
   ClaimFooter
 ```
 
@@ -303,10 +329,9 @@ features/
       ClaimHero.tsx
       ModelSelection.tsx
       ModelCard.tsx
-      WhatYouNeed.tsx
+      ClaimFormPreview.tsx
       WhatHappensNext.tsx
       DoricSeatSupportBlock.tsx
-      ClaimFormPreview.tsx
       ClaimFooter.tsx
     data/
       rollatorModels.ts
@@ -319,10 +344,8 @@ Adjust the structure to match the project conventions.
 ## Out of scope for phase 1
 
 Do not implement:
-- Multi-step logic
-- Product selection behavior
-- Active selected state
-- Form state
+- Multi-step claim logic
+- Form data state beyond selected model display
 - Form validation
 - Order lookup
 - API calls
@@ -344,9 +367,12 @@ Phase 1 is complete when:
 
 - `/warranty-claim` route exists
 - Page loads without runtime errors
-- UI is static and display-only
-- Header, hero, model cards, info sections, Doric Seat support block, form preview, and footer are visible
+- UI is a frontend prototype with model selection used only to reveal the claim form preview
+- Header, hero, model cards, What happens next, Doric Seat support block, and footer are visible
 - All four rollator models are displayed
+- Form preview is hidden on initial load
+- Selecting a model reveals the form preview smoothly beneath the model section
+- Revealed form preview shows the selected model name at the top
 - Page feels complete on first load
 - Page does not show a functional multi-step flow
 - Page does not perform any API or form actions
