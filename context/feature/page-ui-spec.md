@@ -71,23 +71,6 @@ Model selection section
     Nordic Pioneer
     Scandinavian Butler
 
-What you'll need section
-  Three cards:
-    Serial number
-    Purchase date or order number
-    Photos or short video of the issue
-
-What happens next section
-  Four static steps:
-    1. Choose your model
-    2. Tell us what happened
-    3. Add photos
-    4. Submit your claim
-
-Doric Seat support block
-  Heading: Need help with Doric Seat?
-  Body: This warranty claim flow is currently designed for byACRE rollators. For Doric Seat support, contact byACRE support or start a general support request.
-  Display-only link/button: Contact support
 
 Static claim form preview
   Heading: Warranty claim details
@@ -101,6 +84,12 @@ Static claim form preview
     Describe the issue
     Add photos
   Display-only submit button: Submit warranty claim
+  
+
+Doric Seat support block
+  Heading: Need help with Doric Seat?
+  Body: This warranty claim flow is currently designed for byACRE rollators. For Doric Seat support, contact byACRE support or start a general support request.
+  Display-only link/button: Contact support
 
 Footer/help section
   Small reassurance copy
