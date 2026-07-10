@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollToModelsLink } from "@/components/warranty-claim/ScrollToModelsLink";
 import { WarrantyClaimFlow } from "@/components/warranty-claim/WarrantyClaimFlow";
 
 export const metadata: Metadata = {
@@ -180,12 +181,11 @@ export default function WarrantyClaimPage() {
             clear warranty claim.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a
-              href="#models"
+            <ScrollToModelsLink
               className="font-montserrat inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20"
             >
               Start with your model
-            </a>
+            </ScrollToModelsLink>
             <a
               href="#help"
               className="font-montserrat inline-flex min-h-12 items-center justify-center rounded-[0.625rem] px-2 text-base font-bold uppercase text-granite transition hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"

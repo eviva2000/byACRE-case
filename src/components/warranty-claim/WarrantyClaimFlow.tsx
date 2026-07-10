@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { WarrantyClaimForm } from "@/components/warranty-claim/WarrantyClaimForm";
+import { scrollToModelsSection } from "@/lib/scroll-to-models";
 import type { ModelCard } from "@/types/warranty-claim";
 
 interface InfoCard {
@@ -127,13 +128,6 @@ export function WarrantyClaimFlow() {
     }
   };
 
-  const scrollToModels = () => {
-    document.getElementById("models")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
   return (
     <>
       <section id="models" className="mx-auto max-w-[88rem] scroll-mt-40 px-5 py-14 sm:px-0 sm:py-20 lg:py-28">
@@ -216,7 +210,7 @@ export function WarrantyClaimFlow() {
                   <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
                     <WarrantyClaimForm
                       selectedModel={selectedModel}
-                      onChangeModel={scrollToModels}
+                      onChangeModel={scrollToModelsSection}
                     />
                   </div>
                 </div>
