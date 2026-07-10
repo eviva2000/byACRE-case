@@ -9,13 +9,6 @@ export const metadata: Metadata = {
   description: "A product-led byACRE warranty claim experience for rollator owners.",
 };
 
-const heroModel = {
-  name: "Carbon Ultralight",
-  imageSrc:
-    "https://pub-0302b8f55d6b457a81f751a269bf533c.r2.dev/users/cmpd0qeka00013pqp9ifxshj7/carbon_ultralight-royal_blue-01.png",
-  imageAlt: "Carbon Ultralight rollator in royal blue",
-};
-
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-xs font-bold uppercase tracking-[0.24em] text-byacre-red">
@@ -170,11 +163,11 @@ export default function WarrantyClaimPage() {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-[88rem] gap-12 px-5 py-14 sm:px-8 sm:py-20 md:grid-cols-[1fr_0.9fr] md:items-center lg:gap-20 lg:py-28">
-        <div>
+      <section className="mx-auto max-w-[88rem] px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
+        <div className="max-w-6xl text-left">
           <SectionLabel>Warranty support</SectionLabel>
-          <h1 className="mt-5 max-w-2xl text-4xl font-bold [--tw-leading:var(--leading-tight)] [line-height:var(--tw-leading,var(--text-5xl--line-height))] tracking-[0.05em] text-granite sm:text-[58px]">
-            Let us get your rollator moving smoothly again.
+          <h1 className="mt-5 max-w-6xl text-4xl font-bold [--tw-leading:var(--leading-tight)] [line-height:var(--tw-leading,var(--text-5xl--line-height))] tracking-[0.05em] text-granite sm:text-[58px]">
+            Let us get your <span className="lg:whitespace-nowrap">rollator moving smoothly again.</span>
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-slate">
             Choose your byACRE rollator model and we will guide you through a
@@ -192,18 +185,6 @@ export default function WarrantyClaimPage() {
             >
               Need general support?
             </a>
-          </div>
-        </div>
-        <div className="bg-byacre-light-blue px-6 py-10">
-          <div className="relative h-72 w-full sm:h-88">
-            <Image
-              src={heroModel.imageSrc}
-              alt={heroModel.imageAlt ?? heroModel.name}
-              fill
-              priority
-              sizes="(min-width: 768px) 42vw, 90vw"
-              className="object-contain"
-            />
           </div>
         </div>
       </section>
