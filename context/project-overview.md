@@ -465,5 +465,6 @@ Successful mock order:
 ## 15. References
 
 - `@context/byacre-design-guidelines.md`
-- `@context/page-ui-spec.md`
+- `@context/page-ui-spec-phase-1.md`
+- `@context/page-ui-spec-phase-2.md`
 

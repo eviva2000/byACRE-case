@@ -339,7 +339,7 @@ export function WarrantyClaimFlow() {
 
       <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
         <SectionLabel>After submission</SectionLabel>
-        <h2 className="mt-4 text-3xl font-extrabold leading-tight text-granite sm:text-4xl">
+        <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[0.05em] text-granite sm:text-4xl">
           What happens next
         </h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -348,7 +348,7 @@ export function WarrantyClaimFlow() {
               <p className="text-sm font-black uppercase tracking-[0.18em] text-slate">
                 {step.eyebrow}
               </p>
-              <h3 className="mt-3 text-xl font-extrabold text-granite">
+              <h3 className="mt-3 text-xl font-bold text-granite">
                 {step.title}
               </h3>
               <p className="mt-3 text-base leading-7 text-slate">{step.body}</p>
