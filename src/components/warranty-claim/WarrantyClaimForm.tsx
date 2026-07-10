@@ -28,6 +28,8 @@ type ClaimField =
   | "fullName"
   | "email"
   | "purchaseLocation"
+  | "purchaseDate"
+  | "serialNumber"
   | "issueCategory"
   | "issueDescription"
   | "consent";
@@ -59,6 +61,8 @@ const fieldIds: Record<ClaimField, string> = {
   fullName: "claim-full-name",
   email: "claim-email",
   purchaseLocation: "claim-purchase-location",
+  purchaseDate: "claim-purchase-date",
+  serialNumber: "claim-serial-number",
   issueCategory: "claim-issue-category",
   issueDescription: "claim-issue-description",
   consent: "claim-consent",
@@ -103,6 +107,18 @@ function createInitialForm(model: ModelCard): WarrantyClaimFormData {
   };
 }
 
+function getLocalDateValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function setPurchaseDateMaximum(input: HTMLInputElement | null) {
+  if (input) input.max = getLocalDateValue();
+}
+
 function validateForm(data: WarrantyClaimFormData): FieldErrors {
   const nextErrors: FieldErrors = {};
 
@@ -114,6 +130,12 @@ function validateForm(data: WarrantyClaimFormData): FieldErrors {
   }
   if (!data.purchaseLocation.trim()) {
     nextErrors.purchaseLocation = "Please choose where you purchased your rollator.";
+  }
+  if (data.purchaseDate && data.purchaseDate > getLocalDateValue()) {
+    nextErrors.purchaseDate = "Date of purchase cannot be in the future.";
+  }
+  if (!data.serialNumber.trim()) {
+    nextErrors.serialNumber = "Please enter your serial number.";
   }
   if (!data.issueCategory) {
     nextErrors.issueCategory = "Please choose what kind of issue you are experiencing.";
@@ -175,6 +197,7 @@ export function WarrantyClaimForm({
     formData.fullName.trim().length > 0 &&
     formData.email.trim().length > 0 &&
     formData.purchaseLocation.trim().length > 0 &&
+    formData.serialNumber.trim().length > 0 &&
     Boolean(formData.issueCategory) &&
     formData.issueDescription.trim().length > 0 &&
     formData.consent;
@@ -488,27 +511,35 @@ export function WarrantyClaimForm({
           <label className="block text-sm font-extrabold text-granite" htmlFor="claim-purchase-date">
             Date of purchase <span className="font-normal text-slate">(optional)</span>
             <input
+              ref={setPurchaseDateMaximum}
               id="claim-purchase-date"
               name="purchaseDate"
-              className={fieldClass}
+              className={`${fieldClass} ${errors.purchaseDate ? errorFieldClass : ""}`}
               type="date"
               value={formData.purchaseDate}
               onChange={(event) => updateTextField("purchaseDate", event.target.value)}
+              aria-invalid={Boolean(errors.purchaseDate)}
+              aria-describedby={errors.purchaseDate ? "claim-purchase-date-error" : undefined}
             />
+            <FieldError id="claim-purchase-date-error" message={errors.purchaseDate} />
           </label>
         </div>
 
         <label className="mt-5 block text-sm font-extrabold text-granite" htmlFor="claim-serial-number">
-          Serial number <span className="font-normal text-slate">(optional)</span>
+          Serial number<RequiredMark />
           <input
             id="claim-serial-number"
             name="serialNumber"
-            className={fieldClass}
+            className={`${fieldClass} ${errors.serialNumber ? errorFieldClass : ""}`}
             type="text"
             value={formData.serialNumber}
             onChange={(event) => updateTextField("serialNumber", event.target.value)}
+            required
+            aria-invalid={Boolean(errors.serialNumber)}
+            aria-describedby={errors.serialNumber ? "claim-serial-number-error" : undefined}
             placeholder="e.g. BA-2024-000000"
           />
+          <FieldError id="claim-serial-number-error" message={errors.serialNumber} />
         </label>
 
         <div className="mt-5 grid gap-5 sm:grid-cols-2">

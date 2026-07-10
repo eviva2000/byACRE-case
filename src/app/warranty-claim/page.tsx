@@ -170,7 +170,7 @@ export default function WarrantyClaimPage() {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-[88rem] gap-12 px-5 py-14 sm:px-0 sm:py-20 md:grid-cols-[1fr_0.9fr] md:items-center lg:gap-20 lg:py-28">
+      <section className="mx-auto grid max-w-[88rem] gap-12 px-5 py-14 sm:px-8 sm:py-20 md:grid-cols-[1fr_0.9fr] md:items-center lg:gap-20 lg:py-28">
         <div>
           <SectionLabel>Warranty support</SectionLabel>
           <h1 className="mt-5 max-w-2xl text-4xl font-bold [--tw-leading:var(--leading-tight)] [line-height:var(--tw-leading,var(--text-5xl--line-height))] tracking-[0.05em] text-granite sm:text-[58px]">
@@ -182,13 +182,13 @@ export default function WarrantyClaimPage() {
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <ScrollToModelsLink
-              className="font-montserrat inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20"
+              className="font-montserrat inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-center text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20"
             >
               Start with your model
             </ScrollToModelsLink>
             <a
               href="#help"
-              className="font-montserrat inline-flex min-h-12 items-center justify-center rounded-[0.625rem] px-2 text-base font-bold uppercase text-granite transition hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
+              className="font-montserrat inline-flex min-h-12 items-center justify-center rounded-[0.625rem] px-2 text-center text-base font-bold uppercase text-granite transition hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
             >
               Need general support?
             </a>
