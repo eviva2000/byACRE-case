@@ -2,15 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-
-interface ModelCard {
-  name: string;
-  description: string;
-  badge: string;
-  accentClass: string;
-  imageSrc?: string;
-  imageAlt?: string;
-}
+import { WarrantyClaimForm } from "@/components/warranty-claim/WarrantyClaimForm";
+import type { ModelCard } from "@/types/warranty-claim";
 
 interface InfoCard {
   eyebrow: string;
@@ -75,9 +68,6 @@ const nextSteps: InfoCard[] = [
   },
 ];
 
-const fieldClass =
-  "mt-2 h-12 w-full rounded-[6px] border border-border bg-white px-4 text-base text-granite outline-none placeholder:font-normal placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15";
-
 const modelOrderClasses = [
   "order-[0]",
   "order-[2]",
@@ -112,24 +102,6 @@ function RollatorIllustration({ accentClass }: { accentClass: string }) {
       <div className="absolute top-6 right-9 h-7 w-11 rounded-tl-[18px] border-l-[5px] border-t-[5px] border-granite/65" />
       <div className="absolute top-11 right-[4.5rem] h-2 w-20 rounded-full bg-granite/70" />
       <div className="absolute top-5 left-[4.25rem] h-8 w-10 rounded-tl-[16px] border-l-[5px] border-t-[5px] border-granite/60" />
-    </div>
-  );
-}
-
-function SelectedModelThumb({ model }: { model: ModelCard }) {
-  return (
-    <div className="relative h-12 w-12">
-      {model.imageSrc ? (
-        <Image
-          src={model.imageSrc}
-          alt={model.imageAlt ?? model.name}
-          fill
-          sizes="48px"
-          className="object-contain"
-        />
-      ) : (
-        <RollatorIllustration accentClass={model.accentClass} />
-      )}
     </div>
   );
 }
@@ -241,116 +213,13 @@ export function WarrantyClaimFlow() {
             >
               <div className="min-h-0 overflow-hidden">
                 <div className="bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
-                <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
-                  <div className="flex flex-col gap-4 bg-byacre-light-blue p-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-[10px] bg-white">
-                        <SelectedModelThumb model={selectedModel} />
-                      </div>
-                      <div>
-                        <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-slate sm:text-xs">
-                          Selected model
-                        </p>
-                        <p className="mt-1 text-base font-extrabold text-granite sm:text-lg">
-                          {selectedModel.name}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={scrollToModels}
-                      className="font-montserrat min-h-11 rounded-[0.625rem] border border-border bg-white px-4 text-sm font-extrabold uppercase text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
-                    >
-                      Change model
-                    </button>
+                  <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
+                    <WarrantyClaimForm
+                      selectedModel={selectedModel}
+                      onChangeModel={scrollToModels}
+                    />
                   </div>
-
-                  <div className="mt-9">
-                    <h2 className="text-3xl font-bold leading-tight text-granite">
-                      Warranty claim details
-                    </h2>
-                    <p className="mt-3 text-base leading-7 text-slate">
-                      After choosing a model, customers will add their order
-                      details, issue description, photos, and contact
-                      information.
-                    </p>
-                  </div>
-
-                  <form className="mt-8" aria-label="Static warranty claim form preview">
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <label className="block text-sm font-extrabold text-granite">
-                        Your name
-                        <input className={fieldClass} type="text" placeholder="Jane Andersen" readOnly />
-                      </label>
-                      <label className="block text-sm font-extrabold text-granite">
-                        Your email
-                        <input className={fieldClass} type="email" placeholder="jane@example.com" readOnly />
-                      </label>
-                    </div>
-
-                    <label className="mt-5 block text-sm font-extrabold text-granite">
-                      Serial number
-                      <input className={fieldClass} type="text" placeholder="e.g. BA-2024-000000" readOnly />
-                    </label>
-                    <p className="mt-3 text-sm leading-6 text-slate">
-                      You can find the serial number on the rollator frame under
-                      the right rear wheel. It is written on a white sticker
-                      with a small QR code beside it.
-                    </p>
-
-                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                      <label className="block text-sm font-extrabold text-granite">
-                        Where did you purchase your product?
-                        <input className={fieldClass} type="text" placeholder="Store or online retailer" readOnly />
-                      </label>
-                      <label className="block text-sm font-extrabold text-granite">
-                        Date of purchase
-                        <input className={fieldClass} type="text" placeholder="dd/mm/yyyy" readOnly />
-                      </label>
-                    </div>
-
-                    <label className="mt-5 block text-sm font-extrabold text-granite">
-                      Describe the issue
-                      <textarea
-                        className="mt-2 min-h-36 w-full resize-none rounded-[6px] border border-border bg-white px-4 py-3 text-base text-granite outline-none placeholder:font-normal placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15"
-                        placeholder="Tell us what happened and what you noticed."
-                        readOnly
-                      />
-                    </label>
-
-                    <div className="mt-5">
-                      <p className="text-sm font-extrabold text-granite">Add photos</p>
-                      <div className="mt-2 flex min-h-32 flex-col items-center justify-center rounded-[6px] border border-dashed border-border bg-white px-5 text-center">
-                        <p className="text-base font-bold text-granite">
-                          Drag photos here or browse to upload
-                        </p>
-                        <p className="mt-2 text-sm text-slate">
-                          PNG or JPG, up to 10MB each
-                        </p>
-                      </div>
-                    </div>
-
-                    <label className="mt-6 flex items-start gap-3 text-sm leading-6 text-slate">
-                      <input
-                        type="checkbox"
-                        className="mt-1 h-4 w-4 rounded border-border text-byacre-red focus:ring-byacre-red"
-                        readOnly
-                      />
-                      <span>
-                        I confirm that the information is correct and agree
-                        that byACRE may contact me about this claim.
-                      </span>
-                    </label>
-
-                    <button
-                      type="button"
-                      className="font-montserrat mt-7 inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20 sm:w-auto"
-                    >
-                      Submit warranty claim
-                    </button>
-                  </form>
                 </div>
-              </div>
               </div>
             </div>
           ) : null}
