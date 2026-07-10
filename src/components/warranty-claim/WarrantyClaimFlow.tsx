@@ -135,16 +135,36 @@ function SelectedModelThumb({ model }: { model: ModelCard }) {
 }
 
 export function WarrantyClaimFlow() {
-  const [selectedModel, setSelectedModel] = useState<ModelCard | null>(null);
+  const [selectedModel, setSelectedModel] = useState<ModelCard | null>(models[0]);
   const selectedModelIndex = selectedModel
     ? models.findIndex((model) => model.name === selectedModel.name)
     : -1;
   const previewOrderClass =
     previewOrderClasses[selectedModelIndex] ?? "order-[8]";
 
+  const selectModel = (model: ModelCard) => {
+    setSelectedModel(model);
+
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      window.requestAnimationFrame(() => {
+        document.getElementById("claim-preview")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  };
+
+  const scrollToModels = () => {
+    document.getElementById("models")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
-      <section id="models" className="mx-auto max-w-[88rem] px-5 py-14 sm:px-0 sm:py-20 lg:py-28">
+      <section id="models" className="mx-auto max-w-[88rem] scroll-mt-40 px-5 py-14 sm:px-0 sm:py-20 lg:py-28">
         <SectionLabel>Choose your rollator</SectionLabel>
         <div className="mt-4 max-w-3xl">
           <h2 className="text-3xl font-bold leading-tight tracking-[0.05em] text-granite sm:text-4xl">
@@ -169,7 +189,7 @@ export function WarrantyClaimFlow() {
               >
                 <button
                   type="button"
-                  onClick={() => setSelectedModel(model)}
+                  onClick={() => selectModel(model)}
                   className="block w-full text-left focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
                   aria-pressed={isSelected}
                 >
@@ -202,7 +222,7 @@ export function WarrantyClaimFlow() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setSelectedModel(model)}
+                  onClick={() => selectModel(model)}
                   className={`font-montserrat flex min-h-16 w-full items-center justify-center border-0 bg-byacre-black px-6 py-5 text-base font-semibold uppercase tracking-[0.02em] transition-colors hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-inset focus:ring-byacre-red/40 ${
                     isSelected ? "text-byacre-red" : "text-white"
                   }`}
@@ -217,7 +237,7 @@ export function WarrantyClaimFlow() {
             <div
               key={selectedModel.name}
               id="claim-preview"
-              className={`col-span-full max-h-[2400px] overflow-hidden animate-[claim-preview-enter_900ms_ease-in-out_both] motion-reduce:animate-none lg:order-[8] lg:mt-[3.75rem] ${previewOrderClass}`}
+              className={`col-span-full max-h-[2400px] scroll-mt-40 overflow-hidden animate-[claim-preview-enter_900ms_ease-in-out_both] motion-reduce:animate-none lg:order-[8] lg:mt-[3.75rem] lg:animate-none ${previewOrderClass}`}
             >
               <div className="min-h-0 overflow-hidden">
                 <div className="bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
@@ -238,7 +258,7 @@ export function WarrantyClaimFlow() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => setSelectedModel(null)}
+                      onClick={scrollToModels}
                       className="font-montserrat min-h-11 rounded-[0.625rem] border border-border bg-white px-4 text-sm font-extrabold uppercase text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
                     >
                       Change model
