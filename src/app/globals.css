@@ -42,6 +42,7 @@
   --color-defender-green: var(--defender-green);
   --color-bentley-brown: var(--bentley-brown);
   --color-rose-gold: var(--rose-gold);
+  --font-montserrat: var(--font-montserrat-family);
 }
 
 * {
@@ -56,4 +57,18 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--granite);
+}
+
+@keyframes claim-preview-enter {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+
+  to {
+    max-height: 2400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

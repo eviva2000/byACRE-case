@@ -76,7 +76,21 @@ const nextSteps: InfoCard[] = [
 ];
 
 const fieldClass =
-  "mt-2 h-12 w-full rounded-[6px] border border-border bg-white px-4 text-base text-granite outline-none placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15";
+  "mt-2 h-12 w-full rounded-[6px] border border-border bg-white px-4 text-base text-granite outline-none placeholder:font-normal placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15";
+
+const modelOrderClasses = [
+  "order-[0]",
+  "order-[2]",
+  "order-[4]",
+  "order-[6]",
+] as const;
+
+const previewOrderClasses = [
+  "order-[1]",
+  "order-[3]",
+  "order-[5]",
+  "order-[7]",
+] as const;
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -122,13 +136,18 @@ function SelectedModelThumb({ model }: { model: ModelCard }) {
 
 export function WarrantyClaimFlow() {
   const [selectedModel, setSelectedModel] = useState<ModelCard | null>(null);
+  const selectedModelIndex = selectedModel
+    ? models.findIndex((model) => model.name === selectedModel.name)
+    : -1;
+  const previewOrderClass =
+    previewOrderClasses[selectedModelIndex] ?? "order-[8]";
 
   return (
     <>
-      <section id="models" className="mx-auto max-w-[88rem] px-5 py-14 sm:px-0 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-28">
+      <section id="models" className="mx-auto max-w-[88rem] px-5 py-14 sm:px-0 sm:py-20 lg:py-28">
         <SectionLabel>Choose your rollator</SectionLabel>
         <div className="mt-4 max-w-3xl">
-          <h2 className="text-3xl font-extrabold leading-tight text-granite sm:text-4xl">
+          <h2 className="text-3xl font-bold leading-tight tracking-[0.05em] text-granite sm:text-4xl">
             Which model do you need help with?
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate">
@@ -138,13 +157,15 @@ export function WarrantyClaimFlow() {
         </div>
 
         <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {models.map((model) => {
+          {models.map((model, index) => {
             const isSelected = selectedModel?.name === model.name;
 
             return (
               <article
                 key={model.name}
-                className="overflow-hidden rounded-[20px] border border-border bg-white transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(63,64,64,0.09)]"
+                className={`flex h-full flex-col overflow-hidden border border-border bg-white transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(63,64,64,0.09)] ${
+                  modelOrderClasses[index] ?? "order-[0]"
+                }`}
               >
                 <button
                   type="button"
@@ -168,7 +189,7 @@ export function WarrantyClaimFlow() {
                     )}
                   </span>
                 </button>
-                <div className="flex min-h-[16rem] flex-col p-6">
+                <div className="flex min-h-[16rem] flex-1 flex-col p-6">
                   <p className="w-fit rounded-[5px] bg-byacre-light-blue px-3 py-1 text-xs font-bold text-slate">
                     {model.badge}
                   </p>
@@ -178,43 +199,39 @@ export function WarrantyClaimFlow() {
                   <p className="mt-3 flex-1 text-base leading-7 text-slate">
                     {model.description}
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedModel(model)}
-                    className="mt-5 min-h-11 rounded-[0.625rem] border border-border bg-white px-4 text-sm font-extrabold text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
-                    aria-pressed={isSelected}
-                  >
-                    {isSelected ? "Selected" : model.name}
-                  </button>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedModel(model)}
+                  className={`font-montserrat flex min-h-16 w-full items-center justify-center border-0 bg-byacre-black px-6 py-5 text-base font-semibold uppercase tracking-[0.02em] transition-colors hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-inset focus:ring-byacre-red/40 ${
+                    isSelected ? "text-byacre-red" : "text-white"
+                  }`}
+                  aria-pressed={isSelected}
+                >
+                  {isSelected ? "Selected" : "Select model"}
+                </button>
               </article>
             );
           })}
-        </div>
-
-        <div
-          id="claim-preview"
-          className={`grid transition-[grid-template-rows,opacity,transform,margin] duration-1000 ease-out ${
-            selectedModel
-              ? "mt-20 grid-rows-[1fr] translate-y-0 opacity-100"
-              : "mt-0 grid-rows-[0fr] -translate-y-4 opacity-0"
-          }`}
-          aria-hidden={!selectedModel}
-        >
-          <div className="overflow-hidden">
-            {selectedModel ? (
-              <div className="rounded-[32px] bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
-                <div className="mx-auto max-w-3xl rounded-[20px] bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
-                  <div className="flex flex-col gap-4 rounded-[20px] bg-byacre-light-blue p-5 sm:flex-row sm:items-center sm:justify-between">
+          {selectedModel ? (
+            <div
+              key={selectedModel.name}
+              id="claim-preview"
+              className={`col-span-full max-h-[2400px] overflow-hidden animate-[claim-preview-enter_900ms_ease-in-out_both] motion-reduce:animate-none lg:order-[8] lg:mt-[3.75rem] ${previewOrderClass}`}
+            >
+              <div className="min-h-0 overflow-hidden">
+                <div className="bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
+                <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
+                  <div className="flex flex-col gap-4 bg-byacre-light-blue p-5 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-4">
                       <div className="flex h-14 w-14 items-center justify-center rounded-[10px] bg-white">
                         <SelectedModelThumb model={selectedModel} />
                       </div>
                       <div>
-                        <p className="text-xs font-black uppercase tracking-[0.2em] text-slate">
+                        <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-slate sm:text-xs">
                           Selected model
                         </p>
-                        <p className="mt-1 text-lg font-extrabold text-granite">
+                        <p className="mt-1 text-base font-extrabold text-granite sm:text-lg">
                           {selectedModel.name}
                         </p>
                       </div>
@@ -222,14 +239,14 @@ export function WarrantyClaimFlow() {
                     <button
                       type="button"
                       onClick={() => setSelectedModel(null)}
-                      className="min-h-11 rounded-[0.625rem] border border-border bg-white px-4 text-sm font-extrabold text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
+                      className="font-montserrat min-h-11 rounded-[0.625rem] border border-border bg-white px-4 text-sm font-extrabold uppercase text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
                     >
                       Change model
                     </button>
                   </div>
 
                   <div className="mt-9">
-                    <h2 className="text-3xl font-extrabold leading-tight text-granite">
+                    <h2 className="text-3xl font-bold leading-tight text-granite">
                       Warranty claim details
                     </h2>
                     <p className="mt-3 text-base leading-7 text-slate">
@@ -275,7 +292,7 @@ export function WarrantyClaimFlow() {
                     <label className="mt-5 block text-sm font-extrabold text-granite">
                       Describe the issue
                       <textarea
-                        className="mt-2 min-h-36 w-full resize-none rounded-[6px] border border-border bg-white px-4 py-3 text-base text-granite outline-none placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15"
+                        className="mt-2 min-h-36 w-full resize-none rounded-[6px] border border-border bg-white px-4 py-3 text-base text-granite outline-none placeholder:font-normal placeholder:text-slate/70 focus:border-byacre-red focus:ring-2 focus:ring-byacre-red/15"
                         placeholder="Tell us what happened and what you noticed."
                         readOnly
                       />
@@ -307,19 +324,20 @@ export function WarrantyClaimFlow() {
 
                     <button
                       type="button"
-                      className="mt-7 min-h-12 rounded-[0.625rem] bg-byacre-red px-7 text-base font-semibold text-white transition-transform hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-byacre-red/20 sm:w-auto"
+                      className="font-montserrat mt-7 inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20 sm:w-auto"
                     >
                       Submit warranty claim
                     </button>
                   </form>
                 </div>
               </div>
-            ) : null}
-          </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-24 pt-16 sm:px-8 sm:pb-32 sm:pt-20">
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
         <SectionLabel>After submission</SectionLabel>
         <h2 className="mt-4 text-3xl font-extrabold leading-tight text-granite sm:text-4xl">
           What happens next

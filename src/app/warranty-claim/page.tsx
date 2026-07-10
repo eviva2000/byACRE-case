@@ -23,36 +23,156 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+const headerControlClass =
+  "inline-flex items-center gap-3 whitespace-nowrap font-semibold uppercase leading-none text-byacre-black transition-colors hover:text-byacre-red focus:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15";
+
+function HeaderChevron() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 18 11"
+      className="h-3 w-5 shrink-0"
+      fill="none"
+    >
+      <path
+        d="m1.5 1.5 7.5 7 7.5-7"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  );
+}
+
+function DenmarkFlag() {
+  return (
+    <span
+      aria-hidden="true"
+      className="relative h-7 w-7 shrink-0 overflow-hidden rounded-[5px] bg-[#c8102e]"
+    >
+      <span className="absolute inset-x-0 top-[11px] h-[5px] bg-white" />
+      <span className="absolute inset-y-0 left-[8px] w-[5px] bg-white" />
+    </span>
+  );
+}
+
+function CartIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 32 30"
+      className="h-8 w-8 shrink-0"
+      fill="none"
+    >
+      <path
+        d="M2 3h4l2.7 15.2h16.8l3.2-11.1H7.2M11.2 24.8a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0Zm15.1 0a2.2 2.2 0 1 1-4.4 0 2.2 2.2 0 0 1 4.4 0Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 18"
+      className="h-[18px] w-6"
+      fill="none"
+    >
+      <path
+        d="M1 1h22M1 9h22M1 17h22"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function HeaderNavigation() {
+  return (
+    <nav
+      aria-label="Main navigation"
+      className="font-montserrat hidden items-center gap-4 text-base xl:flex 2xl:gap-9 2xl:text-xl"
+    >
+      <button type="button" className={headerControlClass}>
+        Forside
+      </button>
+      <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
+      <button type="button" className={headerControlClass}>
+        ROLLATORER
+        <HeaderChevron />
+      </button>
+      <button type="button" className={headerControlClass}>
+        SHOP
+        <HeaderChevron />
+      </button>
+      <button type="button" className={headerControlClass}>
+        DORICA
+        <HeaderChevron />
+      </button>
+      <button type="button" className={headerControlClass}>
+        HISTORIER
+        <HeaderChevron />
+      </button>
+      <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
+      <button type="button" className={headerControlClass}>
+        Om os
+      </button>
+      <button type="button" className={headerControlClass}>
+        Hjælp
+        <HeaderChevron />
+      </button>
+      <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
+      <button type="button" className={headerControlClass}>
+        <DenmarkFlag />
+        Dk
+        <HeaderChevron />
+      </button>
+      <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
+      <button type="button" className={`${headerControlClass} font-bold`}>
+        <CartIcon />
+        Kurv
+      </button>
+    </nav>
+  );
+}
+
 export default function WarrantyClaimPage() {
   return (
     <main className="min-h-screen bg-bg text-granite">
-      <header className="sticky top-0 z-50 border-b border-border/80 bg-[color-mix(in_oklab,var(--background)_90%,transparent)] backdrop-blur-md">
-        <div className="mx-auto flex max-w-[88rem] items-center justify-between px-5 py-7 sm:px-0">
-          <Link href="/" className="flex items-center gap-3">
+      <header className="sticky top-0 z-50 border-b border-byacre-black/60 bg-white/95 backdrop-blur-md">
+        <div className="flex h-[92px] items-center justify-between px-5 sm:px-8 xl:h-[132px] 2xl:px-14">
+          <Link href="/" aria-label="byACRE home" className="shrink-0">
             <Image
               src="/logo.svg"
               alt="byACRE"
-              width={102}
-              height={40}
-              className="h-8 w-auto"
+              width={178}
+              height={70}
+              className="h-12 w-auto sm:h-14 xl:h-[4.25rem]"
               priority
             />
-            <span className="align-middle text-base font-medium text-slate">
-              Support
-            </span>
           </Link>
-          <nav aria-label="Warranty support navigation" className="hidden items-center gap-9 text-lg font-semibold sm:flex">
-            <a href="#models" className="text-granite transition hover:text-byacre-red focus:text-byacre-red focus:outline-none">
-              Choose model
-            </a>
-          </nav>
+          <HeaderNavigation />
+          <button
+            type="button"
+            className="font-montserrat inline-flex items-center gap-3 text-sm font-bold uppercase text-byacre-black focus:outline-none focus:ring-4 focus:ring-byacre-red/15 xl:hidden"
+            aria-label="Open main navigation"
+          >
+            Menu
+            <MenuIcon />
+          </button>
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-[88rem] gap-12 px-5 pb-16 pt-24 sm:px-0 md:grid-cols-[1fr_0.9fr] md:items-center md:pb-20 md:pt-32 lg:gap-20">
+      <section className="mx-auto grid max-w-[88rem] gap-12 px-5 py-14 sm:px-0 sm:py-20 md:grid-cols-[1fr_0.9fr] md:items-center lg:gap-20 lg:py-28">
         <div>
           <SectionLabel>Warranty support</SectionLabel>
-          <h1 className="mt-5 max-w-2xl text-4xl font-extrabold [--tw-leading:var(--leading-tight)] [line-height:var(--tw-leading,var(--text-5xl--line-height))] tracking-normal text-granite sm:text-[58px]">
+          <h1 className="mt-5 max-w-2xl text-4xl font-bold [--tw-leading:var(--leading-tight)] [line-height:var(--tw-leading,var(--text-5xl--line-height))] tracking-[0.05em] text-granite sm:text-[58px]">
             Let us get your rollator moving smoothly again.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-slate">
@@ -62,19 +182,19 @@ export default function WarrantyClaimPage() {
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <a
               href="#models"
-              className="inline-flex min-h-12 items-center justify-center rounded-[0.625rem] bg-byacre-red px-7 text-base font-bold text-white transition-transform hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-byacre-red/20"
+              className="font-montserrat inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/20"
             >
               Start with your model
             </a>
             <a
               href="#help"
-              className="inline-flex min-h-12 items-center justify-center rounded-[0.625rem] px-2 text-base font-bold text-granite transition hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
+              className="font-montserrat inline-flex min-h-12 items-center justify-center rounded-[0.625rem] px-2 text-base font-bold uppercase text-granite transition hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
             >
               Need general support?
             </a>
           </div>
         </div>
-        <div className="rounded-[20px] bg-byacre-light-blue px-6 py-10">
+        <div className="bg-byacre-light-blue px-6 py-10">
           <div className="relative h-72 w-full sm:h-88">
             <Image
               src={heroModel.imageSrc}
@@ -90,8 +210,8 @@ export default function WarrantyClaimPage() {
 
       <WarrantyClaimFlow />
 
-      <section className="px-5 py-14 sm:px-8">
-        <div className="mx-auto flex max-w-[88rem] flex-col gap-5 rounded-[32px] bg-byacre-light-blue p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
+      <section className="px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
+        <div className="mx-auto flex max-w-[88rem] flex-col gap-5 bg-byacre-light-blue p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
           <div>
             <h2 className="text-2xl font-extrabold text-granite">
               Need help with Dorica Seat?
@@ -104,7 +224,7 @@ export default function WarrantyClaimPage() {
           </div>
           <a
             href="#help"
-            className="inline-flex min-h-12 items-center justify-center rounded-[0.625rem] border border-granite/50 bg-white px-6 text-base font-extrabold text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
+            className="font-montserrat inline-flex min-h-12 items-center justify-center rounded-[0.625rem] border border-granite/50 bg-white px-6 text-base font-extrabold uppercase text-granite transition hover:border-byacre-red hover:text-byacre-red focus:outline-none focus:ring-4 focus:ring-byacre-red/15"
           >
             Contact support
           </a>
