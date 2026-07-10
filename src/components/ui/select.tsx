@@ -40,7 +40,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       position={position}
-      className={`relative z-50 max-h-96 min-w-[8rem] overflow-hidden border border-border bg-white text-granite shadow-[0_18px_40px_rgba(0,0,0,0.14)] ${className ?? ""}`}
+      className={`relative z-50 max-h-96 w-[var(--radix-select-trigger-width)] min-w-[8rem] overflow-hidden border border-border bg-white text-granite shadow-[0_18px_40px_rgba(0,0,0,0.14)] ${className ?? ""}`}
       {...props}
     >
       <SelectPrimitive.Viewport className="p-1">

@@ -69,20 +69,6 @@ const nextSteps: InfoCard[] = [
   },
 ];
 
-const modelOrderClasses = [
-  "order-[0]",
-  "order-[2]",
-  "order-[4]",
-  "order-[6]",
-] as const;
-
-const previewOrderClasses = [
-  "order-[1]",
-  "order-[3]",
-  "order-[5]",
-  "order-[7]",
-] as const;
-
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-xs font-bold uppercase tracking-[0.24em] text-byacre-red">
@@ -109,28 +95,21 @@ function RollatorIllustration({ accentClass }: { accentClass: string }) {
 
 export function WarrantyClaimFlow() {
   const [selectedModel, setSelectedModel] = useState<ModelCard | null>(models[0]);
-  const selectedModelIndex = selectedModel
-    ? models.findIndex((model) => model.name === selectedModel.name)
-    : -1;
-  const previewOrderClass =
-    previewOrderClasses[selectedModelIndex] ?? "order-[8]";
 
   const selectModel = (model: ModelCard) => {
     setSelectedModel(model);
 
-    if (window.matchMedia("(min-width: 1024px)").matches) {
-      window.requestAnimationFrame(() => {
-        document.getElementById("claim-preview")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+    window.requestAnimationFrame(() => {
+      document.getElementById("claim-preview")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
-    }
+    });
   };
 
   return (
     <>
-      <section id="models" className="mx-auto max-w-[88rem] scroll-mt-40 px-5 py-14 sm:px-0 sm:py-20 lg:py-28">
+      <section id="models" className="mx-auto max-w-[88rem] scroll-mt-40 px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
         <SectionLabel>Choose your rollator</SectionLabel>
         <div className="mt-4 max-w-3xl">
           <h2 className="text-3xl font-bold leading-tight tracking-[0.05em] text-granite sm:text-4xl">
@@ -143,15 +122,13 @@ export function WarrantyClaimFlow() {
         </div>
 
         <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {models.map((model, index) => {
+          {models.map((model) => {
             const isSelected = selectedModel?.name === model.name;
 
             return (
               <article
                 key={model.name}
-                className={`flex h-full flex-col overflow-hidden border border-border bg-white transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(63,64,64,0.09)] ${
-                  modelOrderClasses[index] ?? "order-[0]"
-                }`}
+                className="flex h-full flex-col overflow-hidden border border-border bg-white transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(63,64,64,0.09)]"
               >
                 <button
                   type="button"
@@ -203,16 +180,14 @@ export function WarrantyClaimFlow() {
             <div
               key={selectedModel.name}
               id="claim-preview"
-              className={`col-span-full max-h-[2400px] scroll-mt-40 overflow-hidden animate-[claim-preview-enter_900ms_ease-in-out_both] motion-reduce:animate-none lg:order-[8] lg:mt-[3.75rem] lg:animate-none ${previewOrderClass}`}
+              className="col-span-full scroll-mt-40 lg:mt-[3.75rem]"
             >
-              <div className="min-h-0 overflow-hidden">
-                <div className="bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
-                  <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
-                    <WarrantyClaimForm
-                      selectedModel={selectedModel}
-                      onChangeModel={scrollToModelsSection}
-                    />
-                  </div>
+              <div className="bg-byacre-light-blue px-5 py-16 sm:px-8 sm:py-20">
+                <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
+                  <WarrantyClaimForm
+                    selectedModel={selectedModel}
+                    onChangeModel={scrollToModelsSection}
+                  />
                 </div>
               </div>
             </div>

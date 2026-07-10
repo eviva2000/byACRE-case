@@ -58,17 +58,3 @@ body {
   background: var(--bg);
   color: var(--granite);
 }
-
-@keyframes claim-preview-enter {
-  from {
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
-
-  to {
-    max-height: 2400px;
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
