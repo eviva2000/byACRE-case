@@ -94,11 +94,11 @@ function HeaderNavigation() {
       className="font-montserrat hidden items-center gap-4 text-base xl:flex 2xl:gap-9 2xl:text-xl"
     >
       <button type="button" className={headerControlClass}>
-        Forside
+        Home
       </button>
       <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
       <button type="button" className={headerControlClass}>
-        ROLLATORER
+        ROLLATORS
         <HeaderChevron />
       </button>
       <button type="button" className={headerControlClass}>
@@ -110,15 +110,15 @@ function HeaderNavigation() {
         <HeaderChevron />
       </button>
       <button type="button" className={headerControlClass}>
-        HISTORIER
+        STORIES
         <HeaderChevron />
       </button>
       <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
       <button type="button" className={headerControlClass}>
-        Om os
+        About us
       </button>
       <button type="button" className={headerControlClass}>
-        Hjælp
+        Help
         <HeaderChevron />
       </button>
       <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
@@ -130,7 +130,7 @@ function HeaderNavigation() {
       <span aria-hidden="true" className="h-11 w-px shrink-0 bg-byacre-black/80" />
       <button type="button" className={`${headerControlClass} font-bold`}>
         <CartIcon />
-        Kurv
+        Cart
       </button>
     </nav>
   );
