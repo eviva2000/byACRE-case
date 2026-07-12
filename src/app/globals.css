@@ -45,6 +45,12 @@
   --font-montserrat: var(--font-montserrat-family);
 }
 
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

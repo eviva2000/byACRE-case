@@ -13,7 +13,7 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={`flex items-center justify-between gap-3 text-left ${className ?? ""}`}
+    className={`flex items-center justify-between gap-3 text-left disabled:cursor-not-allowed ${className ?? ""}`}
     {...props}
   >
     {children}
