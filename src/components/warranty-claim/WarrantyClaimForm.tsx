@@ -508,13 +508,13 @@ export function WarrantyClaimForm({
             </Select>
             <FieldError id="claim-purchase-location-error" message={errors.purchaseLocation} />
           </label>
-          <label className="block text-sm font-extrabold text-granite" htmlFor="claim-purchase-date">
+          <label className="block min-w-0 text-sm font-extrabold text-granite" htmlFor="claim-purchase-date">
             Date of purchase <span className="font-normal text-slate">(optional)</span>
             <input
               ref={setPurchaseDateMaximum}
               id="claim-purchase-date"
               name="purchaseDate"
-              className={`${fieldClass} ${errors.purchaseDate ? errorFieldClass : ""}`}
+              className={`${fieldClass} min-w-0 max-w-full ${errors.purchaseDate ? errorFieldClass : ""}`}
               type="date"
               value={formData.purchaseDate}
               onChange={(event) => updateTextField("purchaseDate", event.target.value)}
@@ -680,7 +680,7 @@ export function WarrantyClaimForm({
         <button
           type="submit"
           disabled={status === "submitting" || !requiredFieldsFilled}
-          className="font-montserrat mt-7 inline-flex items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red disabled:cursor-not-allowed disabled:bg-byacre-black disabled:text-slate disabled:hover:text-slate focus:outline-none focus:ring-4 focus:ring-byacre-red/20 sm:w-auto"
+          className="font-montserrat mt-7 inline-flex w-full items-center justify-center rounded-2xl border-0 bg-byacre-black px-10 py-4 text-base font-semibold uppercase leading-[1.7] text-white transition-[color] hover:text-byacre-red disabled:cursor-not-allowed disabled:bg-byacre-black disabled:text-slate disabled:hover:text-slate focus:outline-none focus:ring-4 focus:ring-byacre-red/20 sm:w-auto"
         >
           {status === "submitting" ? "Submitting claim..." : "Submit warranty claim"}
         </button>

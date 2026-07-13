@@ -182,7 +182,7 @@ export function WarrantyClaimFlow() {
               id="claim-preview"
               className="col-span-full scroll-mt-40 lg:mt-[3.75rem]"
             >
-              <div className="bg-white py-16 sm:bg-byacre-light-blue sm:px-8 sm:py-20">
+              <div className="bg-white pt-16 sm:bg-byacre-light-blue sm:px-8 sm:py-20">
                 <div className="mx-auto max-w-3xl bg-white p-6 shadow-[0_24px_70px_rgba(63,64,64,0.08)] sm:p-9">
                   <WarrantyClaimForm
                     selectedModel={selectedModel}
